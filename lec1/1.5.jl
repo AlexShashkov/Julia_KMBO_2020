@@ -11,13 +11,18 @@ end
 
 function main(r::Robot)
     # Пусть робот окажется в левом нижнем углу
-    goToTheCorner(Sud, West)
+    path = goToTheCorner(Sud, West)
     # Пусть робот окажется в левом верхнеи углу
     goToTheCorner(Nord, West)
     # Пусть робот окажется в правом верхнеи углу
     goToTheCorner(Nord, Ost)
     # Пусть робот окажется в правом нижнем углу
     goToTheCorner(Sud, Ost)
+
+    goToTheCorner(Sud, West)
+    for item in path[end:-1:1]
+        followByCountRec(r, item[1], item[2])
+    end
 end
 
 function goToTheCorner(side1::HorizonSide, side2::HorizonSide)
